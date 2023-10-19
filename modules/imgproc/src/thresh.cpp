@@ -40,6 +40,7 @@
 //
 //M*/
 
+#include <iostream>
 #include "precomp.hpp"
 #include "opencl_kernels_imgproc.hpp"
 #include "opencv2/core/hal/intrin.hpp"
@@ -778,6 +779,7 @@ thresh_32f( const Mat& _src, Mat& _dst, float thresh, float maxval, int type )
 #endif
 
 #if CV_SIMD
+    std::cout << "In CV_SIMD" << std::endl;
     int i, j;
     v_float32 thresh4 = vx_setall_f32( thresh );
     v_float32 maxval4 = vx_setall_f32( maxval );
@@ -928,6 +930,7 @@ thresh_32f( const Mat& _src, Mat& _dst, float thresh, float maxval, int type )
             CV_Error( CV_StsBadArg, "" ); return;
     }
 #else
+    std::cout << "In threshGeneric" << std::endl;
     threshGeneric<float>(roi, src, src_step, dst, dst_step, thresh, maxval, type);
 #endif
 }
